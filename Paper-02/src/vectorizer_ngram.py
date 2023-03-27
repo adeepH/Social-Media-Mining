@@ -45,8 +45,12 @@ for i, ax in enumerate(axs.flatten()):
     # Add the WordCloud to the subplot
     ax.imshow(wordcloud, interpolation='bilinear')
     ax.axis('off')
-    ax.set_title(f'Wordcloud {i+1}')
+    ax.set_title(f'Cluster {i+1}')
 
 # Display the subplots
+df['cluster'] = df['cluster'].astype(int)
+print(df['cluster'].isna().sum())
+df2 = df[(df['cluster'] == 2) | (df['cluster'] == 4) | (df['cluster'] == 5)]
+df2.to_csv('clustered_data.csv', index=False)
 plt.tight_layout()
 plt.show()

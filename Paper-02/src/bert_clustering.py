@@ -66,7 +66,20 @@ for i in range(n_clusters):
     # Extract top 10 most frequent n-grams
     cluster_keywords = [x[0] for x in ngram_counts.most_common(10)]
     print(f'Cluster {i} keywords: {cluster_keywords}')
+fig, axs = plt.subplots(1, 5, figsize=(12, 4))
+   
+for i, ax in enumerate(axs.flatten()):
+    text = " ".join(df[df['cluster'] == i]['text'])
+    wordcloud = WordCloud(width=800, height=800, background_color='white', collocations=False).generate(text)
 
+    # Add the WordCloud to the subplot
+    ax.imshow(wordcloud, interpolation='bilinear')
+    ax.axis('off')
+    ax.set_title(f'Cluster {i+1}')
+
+# Display the subplots
+plt.tight_layout()
+plt.show()
 """# Generate word clouds for each cluster
 for i in range(n_clusters):
     cluster_df = df[df['cluster'] == i]
